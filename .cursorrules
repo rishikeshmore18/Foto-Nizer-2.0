@@ -1,0 +1,63 @@
+# Foto-Nizer Deployment Rules
+
+## GitHub Repository
+- Repository: https://github.com/rishikeshmore18/Foto-Nizer-2.0.git
+- Default branch: main (or master)
+
+## Deployment Guidelines
+
+### Before Committing
+1. **Build Verification**: Always run `./gradlew build` locally before committing
+2. **Code Quality**: Ensure code compiles without errors
+3. **Version Management**: Update versionCode and versionName in `app/build.gradle.kts` before releases
+4. **Git Ignore**: Never commit:
+   - `local.properties`
+   - `.gradle/`
+   - `build/`
+   - `.idea/` workspace files
+
+### Commit Messages
+- Use clear, descriptive commit messages
+- Format: `[Type]: Description`
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+### Push to GitHub
+1. **Branch Strategy**:
+   - `main/master`: Production-ready code
+   - Feature branches: `feature/description`
+   - Hotfix branches: `hotfix/description`
+
+2. **Automated Actions**:
+   - Pushing to `main/master` triggers automatic build
+   - Creating a tag `v*` (e.g., `v1.0.0`) creates a GitHub release with APK and AAB
+
+### Release Process
+1. Update version in `app/build.gradle.kts`:
+   ```kotlin
+   versionCode = X
+   versionName = "X.Y.Z"
+   ```
+2. Commit changes
+3. Create and push tag:
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+4. GitHub Actions will automatically create a release with artifacts
+
+### Artifacts
+- APK: Available in Actions artifacts and releases
+- AAB: Available in Actions artifacts and releases (for Play Store)
+
+### Manual Deployment
+If needed, manually trigger workflow:
+- Go to Actions tab in GitHub
+- Select "Build and Deploy" workflow
+- Click "Run workflow"
+
+## Project Structure
+- Android Kotlin project with Jetpack Compose
+- Gradle build system
+- Minimum SDK: 24
+- Target SDK: 36
+
